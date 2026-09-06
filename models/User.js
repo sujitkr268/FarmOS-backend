@@ -1,47 +1,39 @@
-const mongoose = require("mongoose");
+const { pool } = require("../config/db");
 
-const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-      trim: true
-    },
+const createUsersTable = async () => {
+  const query = `
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
 
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true
-    },
+      name VARCHAR(100) NOT NULL,
 
-    password: {
-      type: String,
-      required: true
-    },
+      email VARCHAR(255) NOT NULL UNIQUE,
 
-    role: {
-      type: String,
-      enum: ["farmer", "buyer", "admin"],
-      default: "farmer"
-    },
+      password VARCHAR(255) NOT NULL,
 
-    phone: {
-      type: String,
-      required: true
-    },
+      role VARCHAR(20) NOT NULL DEFAULT 'farmer'
+        CHECK (role IN ('farmer', 'buyer', 'admin')),
 
-    location: {
-      type: String,
-      required: true
-    }
-  },
-  {
-    timestamps: true
+      phone VARCHAR(20) NOT NULL,
+
+      location VARCHAR(255) NOT NULL,
+
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `;
+
+  try {
+    await pool.query(query);
+    console.log("Users table ready");
+  } catch (error) {
+    console.error("Error creating users table:", error.message);
   }
-);
+};
 
-const User = mongoose.model("User", userSchema);
+const User = {
+  createUsersTable,
+};
 
 module.exports = User;
