@@ -69,7 +69,6 @@ const registerUser = async (req, res) => {
 
     const user = result.rows[0];
 
-    // Send response
     return res.status(201).json({
       message: "User registered successfully",
       user
@@ -157,7 +156,6 @@ const loginUser = async (req, res) => {
     // Send successful response
     return res.status(200).json({
       message: "Login successful",
-
       token,
 
       user: {
@@ -179,9 +177,35 @@ const loginUser = async (req, res) => {
 };
 
 
+// ================= GET USER PROFILE =================
+
+const getProfile = async (req, res) => {
+  try {
+
+    // req.user comes from authMiddleware
+    return res.status(200).json({
+      user: req.user
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Get Profile Error:",
+      error.message
+    );
+
+    return res.status(500).json({
+      message: "Server error",
+      error: error.message
+    });
+  }
+};
+
+
 // ================= EXPORT =================
 
 module.exports = {
   registerUser,
-  loginUser
+  loginUser,
+  getProfile
 };
