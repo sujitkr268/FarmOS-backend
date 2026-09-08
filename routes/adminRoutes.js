@@ -13,6 +13,21 @@ const authorizeRoles = require("../middleware/roleMiddleware");
 
 
 // ================= ADMIN ROUTES =================
+/**
+ * @swagger
+ * /api/admin/users:
+ *   get:
+ *     summary: Get all users
+ *     tags:
+ *       - Admin
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Users retrieved successfully
+ *       403:
+ *         description: Admin access required
+ */
 
 // Get all users
 router.get(
@@ -23,6 +38,22 @@ router.get(
 );
 // ================= GET ALL HARVESTS =================
 
+/**
+ * @swagger
+ * /api/admin/harvests:
+ *   get:
+ *     summary: Get all harvests
+ *     tags:
+ *       - Admin
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Harvests retrieved successfully
+ *       403:
+ *         description: Admin access required
+ */
+
 router.get(
   "/harvests",
   protect,
@@ -31,6 +62,23 @@ router.get(
 );
 // ================= GET ALL ORDERS =================
 
+
+/**
+ * @swagger
+ * /api/admin/orders:
+ *   get:
+ *     summary: Get all orders
+ *     tags:
+ *       - Admin
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Orders retrieved successfully
+ *       403:
+ *         description: Admin access required
+ */
+
 router.get(
   "/orders",
   protect,
@@ -38,6 +86,22 @@ router.get(
   getAllOrders
 );
 // ================= ADMIN DASHBOARD STATS =================
+
+/**
+ * @swagger
+ * /api/admin/dashboard:
+ *   get:
+ *     summary: Get admin dashboard statistics
+ *     tags:
+ *       - Admin
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Dashboard statistics retrieved successfully
+ *       403:
+ *         description: Admin access required
+ */
 
 router.get(
   "/dashboard",

@@ -25,6 +25,22 @@ router.post(
 
 // ================= GET ALL HARVESTS =================
 
+/**
+ * @swagger
+ * /api/admin/harvests:
+ *   get:
+ *     summary: Get all harvests
+ *     tags:
+ *       - Admin
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Harvests retrieved successfully
+ *       403:
+ *         description: Admin access required
+ */
+
 router.get("/", getAllHarvests);
 // ================= GET SINGLE HARVEST =================
 
